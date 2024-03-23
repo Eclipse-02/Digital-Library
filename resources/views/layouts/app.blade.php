@@ -103,6 +103,7 @@
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="{{ asset('master/dist/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('master/dist/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+		<link href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
@@ -201,6 +202,9 @@
 		<!--begin::Global Javascript Bundle(used by all pages)-->
 		<script src="{{ asset('master/dist/assets/plugins/global/plugins.bundle.js') }}"></script>
 		<script src="{{ asset('master/dist/assets/js/scripts.bundle.js') }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+		<script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
         @include('sweetalert::alert')
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Page Custom Javascript(used by this page)-->
