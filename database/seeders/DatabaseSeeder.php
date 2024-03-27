@@ -13,14 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(LaratrustSeeder::class);
 
         \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('12345678'),
             'address' => 'Home',
-        ]);
+        ])->addRole('admin');
 
         // Dummy Data
         \App\Models\Publisher::create([
