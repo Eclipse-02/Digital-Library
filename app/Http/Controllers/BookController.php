@@ -151,8 +151,8 @@ class BookController extends Controller
                 if ($request->old_file) {
                     Storage::delete('public/storage/files/' . $request->old_file);
                 }
-                $request->file('file')->move(storage_path('app/public/storage/files'), 'file-' . Carbon::now()->format('Y-m-d-His') . '.png');
-                $book->update(['file_name' => 'file-' . Carbon::now()->format('Y-m-d-His') . $request->file('file')->getClientOriginalExtension()]);
+                $request->file('file')->move(storage_path('app/public/storage/files'), 'file-' . Carbon::now()->format('Y-m-d-His') . '.' . $request->file('file')->getClientOriginalExtension());
+                $book->update(['file_name' => 'file-' . Carbon::now()->format('Y-m-d-His') . '.' . $request->file('file')->getClientOriginalExtension()]);
             }
 
             if ($request->file('cover')) {
@@ -184,7 +184,7 @@ class BookController extends Controller
 
         event(new LogEvent(auth()->user()->id, 'book-delete', $book->id));
 
-        toast('Data deleted successfully!', 'success');
+        toast('Data disabled successfully!', 'success');
         return redirect()->route('books.index');
     }
 }

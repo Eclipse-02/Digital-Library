@@ -26,7 +26,7 @@
       <div class="card-body p-9 pb-3">
         <!--begin::Heading-->
         <div class="fs-2hx fw-bolder">{{ $phy_book - $borrowed }}</div>
-        <div class="fs-4 fw-bold text-gray-400 mb-7">Physical Book</div>
+        <div class="fs-4 fw-bold text-gray-400 mb-7">Physical Book Available</div>
         <!--end::Heading-->
       </div>
       <!--end::Card body-->
@@ -61,7 +61,7 @@
     <!--end::Header-->
     <!--begin::Body-->
     <div class="card-body pt-5">
-      @role('admin')
+      @role(['admin', 'employee'])
       @if ($admin_notifications->isEmpty())
           <div class="overflow-auto pb-5">
             <!--begin::Record-->
@@ -82,13 +82,13 @@
                 <!--end::Title-->
                 <!--begin::Label-->
                 <div class="min-w-200px pe-2">
-                  <span class="badge badge-light text-muted">{{ $i->book->title }} - {{ $i->book->writer }}</span>
+                  <span class="badge badge-light text-muted"><a href="{{ route('reads.show', $i->book->id) }}">{{ $i->book->title }} - {{ $i->book->writer }}</a></span>
                 </div>
                 <!--end::Label-->
                 <!--begin::Progress-->
                 <div class="min-w-175px pe-2">
                   <span class="badge @if(now()->diffInDays(Carbon\Carbon::parse($i->return_date)) >= 4)badge-light-primary @elseif(now()->diffInDays(Carbon\Carbon::parse($i->return_date)) >= 2)badge-light-warning @else badge-light-danger @endif">
-                  @if (now()->diffInDays(Carbon\Carbon::parse($i->return_date)) < 0)
+                  @if (now()->diffInDays(Carbon\Carbon::parse($i->return_date)) > 0)
                     {{ now()->diffInDays(Carbon\Carbon::parse($i->return_date)) }} day(s) left
                   @elseif (now()->diffInDays(Carbon\Carbon::parse($i->return_date)) == 0)
                     Final Day
@@ -128,16 +128,24 @@
                 <!--end::Title-->
                 <!--begin::Label-->
                 <div class="min-w-200px pe-2">
-                  <span class="badge badge-light text-muted">{{ $i->book->title }} - {{ $i->book->writer }}</span>
+                  <span class="badge badge-light text-muted"><a href="{{ route('reads.show', $i->book->id) }}">{{ $i->book->title }} - {{ $i->book->writer }}</a></span>
                 </div>
                 <!--end::Label-->
                 <!--begin::Progress-->
                 <div class="min-w-175px pe-2">
-                  <span class="badge @if(now()->diffInDays(Carbon\Carbon::parse($i->return_date)) >= 4)badge-light-primary @elseif(now()->diffInDays(Carbon\Carbon::parse($i->return_date)) >= 2)badge-light-warning @else badge-light-warning @endif">{{ now()->diffInDays(Carbon\Carbon::parse($i->return_date)) }} day(s) left</span>
+                  <span class="badge @if(now()->diffInDays(Carbon\Carbon::parse($i->return_date)) >= 4)badge-light-primary @elseif(now()->diffInDays(Carbon\Carbon::parse($i->return_date)) >= 2)badge-light-warning @else badge-light-danger @endif">
+                  @if (now()->diffInDays(Carbon\Carbon::parse($i->return_date)) > 0)
+                    {{ now()->diffInDays(Carbon\Carbon::parse($i->return_date)) }} day(s) left
+                  @elseif (now()->diffInDays(Carbon\Carbon::parse($i->return_date)) == 0)
+                    Final Day
+                  @else
+                    {{ now()->diffInDays(Carbon\Carbon::parse($i->return_date)) }} day(s) passed
+                  @endif
+                  </span>
                 </div>
                 <!--end::Progress-->
                 <!--begin::Action-->
-                <a href="{{ route('reads.show', $i->id) }}" class="btn btn-sm btn-light btn-active-light-primary">View Book Details</a>
+                <a href="{{ route('reads.show', $i->book->id) }}" class="btn btn-sm btn-light btn-active-light-primary">View Book Details</a>
                 <!--end::Action-->
               </div>
               <!--end::Record-->
@@ -173,7 +181,7 @@
         </div>
       @else
         @foreach ($histories as $i)
-        <div class="row">
+        <div class="card shadow-sm mb-5">
           <div class="col-lg-6 col-sm-12">
             <div class="d-flex align-items-center border border-dashed border-gray-300 rounded px-7 py-3 mb-5">
               <!--begin::Avatar-->

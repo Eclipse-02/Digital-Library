@@ -130,14 +130,11 @@ class ReadController extends Controller
             ['user_id', '=', auth()->user()->id],
         ]);
 
-        $book_status = $book->where('status', 'L');
-
-        if ($book_status->first()) {
-            $book->update(['status' => 'R']);
-        } else if (!$book->first()) {
-            $book->create([
+        if (!$book->first()) {
+            $book->updateOrCreate([
                 'book_id' => $read->id,
                 'user_id' => auth()->user()->id,
+            ],[
                 'status' => 'R',
             ]);
         }

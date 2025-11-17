@@ -3,7 +3,7 @@
 @section('title', 'Users')
 
 @section('content')
-<div class="card card-xxl-stretch">
+<div class="card card-xxl-stretch h-100">
     <!--begin::Header-->
     <div class="card-header align-items-center border-0 mt-4">
         <h3 class="card-title align-items-start flex-column">

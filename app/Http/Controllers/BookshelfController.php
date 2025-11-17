@@ -30,11 +30,21 @@ class BookshelfController extends Controller
      */
     public function store(Request $request)
     {
-        $bookshelf = Bookshelf::create([
-            'book_id' => $request->book_id,
-            'user_id' => auth()->user()->id,
-            'status' => 'L'
-        ]);
+        $book = Bookshelf::where([
+            ['book_id', '=', $request->book_id],
+            ['user_id', '=', auth()->user()->id],
+        ])->first();
+
+        if ($book) {
+            toast('Book is already in your bookshelf!', 'error');
+            return response()->json(['message' => 'Book is already in your bookshelf!'], 400);
+        } else {
+            $bookshelf = Bookshelf::create([
+                'book_id' => $request->book_id,
+                'user_id' => auth()->user()->id,
+                'status' => 'L'
+            ]);
+        }
 
         event(new LogEvent(auth()->user()->id, 'bookshelf-create', $bookshelf->id));
 
