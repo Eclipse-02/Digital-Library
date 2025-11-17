@@ -1,9 +1,5 @@
 # PROJEK UKK DIGITAL LIBRARY
 
-- Nama: Rafa Umar Abdus Syakur.
-- NIS: 12100738.
-- Kelas: RPL-XII.
-
 ## 0. Setup
 Sebelum menjalankan program, pastikan anda sudah memiliki [xampp](https://www.apachefriends.org/download.html), [composer](https://getcomposer.org), dan [node.js](https://nodejs.org/en)
 
@@ -18,6 +14,10 @@ Jangan lupa untuk membuat .env file dengan menyalin .env.example
 Ini untuk mengenerate database dan data dummy
 
     php artisan migrate --seed
+
+Lalu enable symlink agar file dapat dibaca
+
+    php artisan storage:link
 
 Dan ini untuk menjalankan server
 
